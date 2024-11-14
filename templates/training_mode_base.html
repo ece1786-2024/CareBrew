@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CareBrew - Assistant Mode</title>
+    <title>CareBrew - Training Mode</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding-top: 20px; display: flex; flex-direction: column; align-items: center; }
@@ -21,18 +21,19 @@
 <body>
     <header class="header">
         <img src="{{ url_for('static', filename='logo.png') }}" alt="CareBrew Logo" class="logo">
-        <h1>Assistant Mode</h1>
+        <h1>Training Mode</h1>
     </header>
     <div class="container">
+        <p><strong>Scenario:</strong> {{ scenario }}</p>
         <form method="post" class="form-section">
-            <label for="user_scenario">Enter Scenario:</label>
-            <textarea name="user_scenario" required></textarea>
-            <button type="submit">Get Response</button>
+            <button type="submit" name="shuffle">Shuffle Scenario</button>
         </form>
-        {% if generated_response %}
-            <p><strong>Generated Response:</strong> {{ generated_response }}</p>
-        {% endif %}
+        <form method="post" class="form-section">
+            <label for="user_response">Your Response:</label>
+            <textarea name="user_response" required></textarea>
+            <button type="submit">Evaluate</button>
+        </form>
     </div>
-    <a href="{{ url_for('base') }}" class="back-button">Back</a>
+    <a href="{{ url_for('base') }}" class="back-button">Home page</a>
 </body>
 </html>

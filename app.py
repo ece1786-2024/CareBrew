@@ -25,12 +25,14 @@ def training_mode():
     # Check if the shuffle button was clicked
     if request.method == 'POST' and 'shuffle' in request.form:
         scenario = generate_scenario()
+
     # Process the form for user response in Training Mode
     elif request.method == 'POST' and 'user_response' in request.form:
         user_response = request.form['user_response']
         processed_response = process_training_response(generated_scenario, user_response)
+        return render_template('training_mode_response.html', scenario=scenario, user_response=user_response, processed_response=processed_response)
 
-    return render_template('training_mode.html', scenario=scenario, processed_response=processed_response)
+    return render_template('training_mode_base.html', scenario=scenario)
 
 
 # Route for Assistant Mode
@@ -42,8 +44,9 @@ def assistant_mode():
     if request.method == 'POST' and 'user_scenario' in request.form:
         user_scenario = request.form['user_scenario']
         generated_response = generate_assistant_response(user_scenario)
+        return render_template('assistant_mode_response.html', user_scenario=user_scenario, generated_response=generated_response)
 
-    return render_template('assistant_mode.html', generated_response=generated_response)
+    return render_template('assistant_mode_base.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
