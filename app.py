@@ -20,6 +20,7 @@ def training_mode():
     # Generate a scenario using the function from training_mode_prompt.py
     generated_scenario = generate_scenario()
     scenario = generated_scenario
+    processed_response = None  # Initialize processed_response to avoid UnboundLocalError
 
     # Check if the shuffle button was clicked
     if request.method == 'POST' and 'shuffle' in request.form:
@@ -29,7 +30,8 @@ def training_mode():
         user_response = request.form['user_response']
         processed_response = process_training_response(generated_scenario, user_response)
 
-    return render_template('training_mode.html', scenario=scenario)
+    return render_template('training_mode.html', scenario=scenario, processed_response=processed_response)
+
 
 # Route for Assistant Mode
 @app.route('/assistant', methods=['GET', 'POST'])

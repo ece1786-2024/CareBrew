@@ -33,8 +33,8 @@
             <textarea name="user_response" required></textarea>
             <button type="submit">Evaluate</button>
         </form>
-        {% if evaluation %}
-            <p><strong>Evaluation:</strong> {{ evaluation }}</p>
+        {% if processed_response %}
+            <p><strong>Evaluation:</strong> {{ processed_response }}</p>
         {% endif %}
     </div>
     <a href="{{ url_for('base') }}" class="back-button">Back</a>
