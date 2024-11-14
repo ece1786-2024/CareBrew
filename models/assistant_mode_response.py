@@ -2,7 +2,9 @@ import openai
 
 generation_prompt = {
     "role": "system",
-    "content": "Generate an appropriate response to the user's input scenario."
+    "content": "Given the user's scenario above, suggest what the user can do to mitigate the situation."
+    "Address the user as 'you' in your response. That is, use language such as 'Your response shows' or something of that nature."
+    "Your answer should not include any bold or italicized text."
 }
 
 def call_to_API(user_response):
