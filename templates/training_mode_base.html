@@ -25,13 +25,16 @@
     </header>
     <div class="container">
         <p><strong>Scenario:</strong> {{ scenario }}</p>
-        <form method="post" class="form-section">
+        <form method="get" class="form-section">
             <button type="submit" name="shuffle">Shuffle Scenario</button>
         </form>
         <form method="post" class="form-section">
             <label for="user_response">Your Response:</label>
             <textarea name="user_response" required></textarea>
-            <button type="submit">Evaluate</button>
+            <button type="submit">Evaluate</button><br><br>
+            <label>
+                <input type="checkbox" name="save_data" value="true" checked> Contribute your response to improve CareBrew ❤️
+            </label>
         </form>
     </div>
     <a href="{{ url_for('base') }}" class="back-button">Home page</a>
