@@ -1,13 +1,14 @@
 import openai
 
-generation_prompt = (
-    "something"
-)
+generation_prompt = {
+    "role": "system",
+    "content": "Provide feedback on how well the response addresses the given scenario."
+}
 
 def call_to_API(training_mode_prompt, user_response):
     messages = [
-        training_mode_prompt, 
-        user_response,
+        {"role": "user", "content": training_mode_prompt},
+        {"role": "user", "content": user_response},
         generation_prompt
     ]
     
@@ -19,8 +20,3 @@ def call_to_API(training_mode_prompt, user_response):
     )
     
     return response.choices[0].message['content'].strip()
-
-training_mode_prompt = "I was sad because my coffe was cold"
-user_response = "Let me make you a new one"
-
-response = call_to_API(training_mode_prompt, user_response)
