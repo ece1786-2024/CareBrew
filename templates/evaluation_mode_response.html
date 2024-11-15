@@ -11,6 +11,7 @@
         h1 { font-size: 2em; margin: 0; }
         .container { width: 80%; max-width: 800px; border: 1px solid #ddd; padding: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
         p { margin-top: 15px; }
+        pre { background-color: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
         .back-button { margin-top: 20px; padding: 10px 20px; background-color: #007BFF; color: #fff; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; }
         .back-button:hover { background-color: #0056b3; }
     </style>
@@ -23,14 +24,14 @@
     <div class="container">
         <!-- Display the user's input text -->
         <p><strong>Your Input:</strong></p>
-        <p>{{ input_text }}</p>
+        <pre>{{ input_text }}</pre>
 
         <!-- Indicate that the text has been evaluated -->
         <p><strong>Evaluation Result:</strong></p>
-        <p>{{ evaluation_result }}</p>
+        <pre>{{ evaluation_result }}</pre>
 
-        <!-- Show a message that confirms the evaluation was processed -->
-        <p><em>Your text has been evaluated!</em></p>
+        <!-- Show a message confirming the evaluation -->
+        <p><em>Your text has been successfully evaluated!</em></p>
     </div>
     <a href="{{ url_for('evaluation_mode') }}" class="back-button">Try another evaluation</a>
     <a href="{{ url_for('base') }}" class="back-button">Home page</a>

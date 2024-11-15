@@ -66,8 +66,9 @@ def assistant_mode():
 def evaluation_mode():
     if request.method == 'POST':
         input_text = request.form['evaluation_input']
+        dropdown_model = request.form['dropdown']
         
-        evaluation_result = evaluate_input(input_text)
+        evaluation_result = evaluate_input(input_text, dropdown_model)
         
         return render_template('evaluation_mode_response.html', 
                                evaluation_result=evaluation_result, 
