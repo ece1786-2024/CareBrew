@@ -64,14 +64,15 @@ def assistant_mode():
 # route for evaluation
 @app.route('/evaluation', methods=['GET', 'POST'])
 def evaluation_mode():
-    evaluation_result = None
-
-    if request.method == 'POST' and 'input_text' in request.form:
-        input_text = request.form['input_text']
+    if request.method == 'POST':
+        input_text = request.form['evaluation_input']
+        
         evaluation_result = evaluate_input(input_text)
         
-        return render_template('evaluation_mode_response.html', evaluation_result=evaluation_result)
-
+        return render_template('evaluation_mode_response.html', 
+                               evaluation_result=evaluation_result, 
+                               input_text=input_text)
+    
     return render_template('evaluation_mode_base.html')
 
 

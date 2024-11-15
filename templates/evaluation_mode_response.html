@@ -2,12 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evaluation Response</title>
+    <title>CareBrew - Evaluation Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding-top: 20px; display: flex; flex-direction: column; align-items: center; }
+        .header { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 900px; margin-bottom: 20px; text-align: center; }
+        .logo { width: 100px; height: 100px; margin-right: 15px; }
+        h1 { font-size: 2em; margin: 0; }
+        .container { width: 80%; max-width: 800px; border: 1px solid #ddd; padding: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+        p { margin-top: 15px; }
+        .back-button { margin-top: 20px; padding: 10px 20px; background-color: #007BFF; color: #fff; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; }
+        .back-button:hover { background-color: #0056b3; }
+    </style>
 </head>
 <body>
-    <h1>Evaluation Result</h1>
-    <p>{{ evaluation_result }}</p>
-    <a href="/evaluation">Try Again</a>
+    <header class="header">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="CareBrew Logo" class="logo">
+        <h1>Evaluation Result</h1>
+    </header>
+    <div class="container">
+        <!-- Display the user's input text -->
+        <p><strong>Your Input:</strong></p>
+        <p>{{ input_text }}</p>
+
+        <!-- Indicate that the text has been evaluated -->
+        <p><strong>Evaluation Result:</strong></p>
+        <p>{{ evaluation_result }}</p>
+
+        <!-- Show a message that confirms the evaluation was processed -->
+        <p><em>Your text has been evaluated!</em></p>
+    </div>
+    <a href="{{ url_for('evaluation_mode') }}" class="back-button">Try another evaluation</a>
+    <a href="{{ url_for('base') }}" class="back-button">Home page</a>
 </body>
 </html>

@@ -2,16 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evaluation Mode</title>
+    <title>CareBrew - Evaluation Mode</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding-top: 20px; display: flex; flex-direction: column; align-items: center; }
+        .header { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 900px; margin-bottom: 20px; text-align: center; }
+        .logo { width: 100px; height: 100px; margin-right: 15px; }
+        h1 { font-size: 2em; margin: 0; }
+        .container { width: 80%; max-width: 800px; border: 1px solid #ddd; padding: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+        textarea { width: 100%; margin-top: 10px; height: 100px; }
+        button { margin-top: 10px; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; background-color: #007BFF; color: white; }
+        button:hover { background-color: #0056b3; }
+        .form-section { margin-top: 20px; }
+        p { margin-top: 15px; }
+        .back-button { margin-top: 20px; padding: 10px 20px; background-color: #007BFF; color: #fff; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; }
+        .back-button:hover { background-color: #0056b3; }
+    </style>
 </head>
 <body>
-    <h1>Evaluation Mode</h1>
-    <form action="/evaluation" method="POST">
-        <label for="input_text">Input Text for Evaluation:</label>
-        <textarea id="input_text" name="input_text" rows="4" cols="50" required></textarea>
-        <br><br>
-        <button type="submit" name="evaluate">Evaluate</button>
-    </form>
+    <header class="header">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="CareBrew Logo" class="logo">
+        <h1>Evaluation Mode</h1>
+    </header>
+    <div class="container">
+        <form method="post" class="form-section">
+            <label for="evaluation_input">Enter your text for evaluation:</label>
+            <textarea name="evaluation_input" required></textarea>
+            <button type="submit">Evaluate</button>
+        </form>
+    </div>
+    <a href="{{ url_for('base') }}" class="back-button">Home page</a>
 </body>
 </html>
