@@ -6,6 +6,7 @@ import pandas as pd
 from models.training_mode_prompt import call_to_API as generate_scenario
 from models.training_mode_response import call_to_API as process_training_response
 from models.assistant_mode_response import call_to_API as generate_assistant_response
+from models.evaluation_mode_response import evaluate_input as evaluate_input
 
 app = Flask(__name__)
 app.secret_key = '1A2B3C4D5E'
@@ -58,6 +59,21 @@ def assistant_mode():
         return render_template('assistant_mode_response.html', user_scenario=user_scenario, generated_response=generated_response)
 
     return render_template('assistant_mode_base.html')
+
+
+# route for evaluation
+@app.route('/evaluation', methods=['GET', 'POST'])
+def evaluation_mode():
+    evaluation_result = None
+
+    if request.method == 'POST' and 'input_text' in request.form:
+        input_text = request.form['input_text']
+        evaluation_result = evaluate_input(input_text)
+        
+        return render_template('evaluation_mode_response.html', evaluation_result=evaluation_result)
+
+    return render_template('evaluation_mode_base.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
