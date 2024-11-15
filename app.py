@@ -53,7 +53,8 @@ def assistant_mode():
     # Process the form for user input in Assistant Mode
     if request.method == 'POST' and 'user_scenario' in request.form:
         user_scenario = request.form['user_scenario']
-        generated_response = generate_assistant_response(user_scenario)
+        dropdown_model = request.form['dropdown']
+        generated_response = generate_assistant_response(user_scenario, dropdown_model)
         return render_template('assistant_mode_response.html', user_scenario=user_scenario, generated_response=generated_response)
 
     return render_template('assistant_mode_base.html')
