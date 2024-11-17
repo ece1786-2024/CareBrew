@@ -1,0 +1,26 @@
+scenario,response,empathy_level
+"I sent in the request, but you all didn’t process until I called. Then the lady immediately did it for me.", "Mm, mm. I see.", 2
+"This is actually for Mr. [XXX]?", "Ah, okay.", 1
+"I waited over 30 minutes in line, and no one helped me.", "Hmm, alright.", 1
+"I’m frustrated because my coffee order has been wrong the last three times.", "Oh, I see.", 2
+"I sent an email about my complaint, but I didn’t get any response.", "Okay.", 1
+"I sent in the request, but you all didn’t process until I called. Then the lady immediately did it for me.", "I get what you mean.", 2
+"Just ah, last month we took a loan of 9,500 from this policy with the interest of 6%.", "Mhm.", 1
+"I’ve been charged twice for the same coffee order.", "I understand.", 2
+"I’ve been having issues getting in touch with someone from customer service.", "Alright, I hear you.", 2
+"The app keeps crashing when I try to make an order, and it’s really frustrating.", "I see what you’re saying.", 2
+"I’m Mr. [XXX]’s daughter calling on his behalf.", "Ah, okay, Ma’am. So how can I help you?", 4
+"I would like to check if let’s say he wants to do a payment ah now of the full amount.", "Is it going to be a full repayment?", 3
+"My coffee order has been incorrect multiple times this week.", "I see, so your order hasn't been made correctly several times?", 3
+"I’ve been trying to apply my rewards points, but they don’t seem to work.", "I understand. Could you tell me what happens when you try?", 3
+"I’m not sure which coffee beans would suit my taste.", "So you're looking for coffee beans that you would enjoy.", 3
+"I’m really terribly unhappy with the service I’m getting from ABC. I want to be assigned just one officer for all my policies.", "Yes, I understand, Ma’am.", 4
+"Who is contactable and when I need any help I can get her easily. And maybe someone who bothers enough to like call up and check.", "I understand what you mean. So what I’ll do is inform your account manager and have them assign you a dedicated officer.", 4
+"I’ve been waiting for over an hour for my coffee, and I’m really upset.", "I’m so sorry for the delay, Ma’am. Let me see how I can make this right for you.", 4
+"I accidentally ordered the wrong drink, and I don’t know if I can change it.", "I completely understand, Sir. Let me check if we can modify the order for you right away.", 4
+"The coffee I ordered spilled because the lid wasn’t secure, and I’m really frustrated.", "I’m so sorry that happened. That must have been inconvenient. Let me replace your drink right away.", 4
+"I’m really terribly unhappy with the service I’m getting from ABC. I want to be assigned just one officer for all my policies.", "Yes, I understand, Ma’am. So you want one common officer for all.", 5
+"For the claim, let’s say my husband got a tumor, then he needs to stay in a hospital. Can we use this for [that] sort of claim?", "I see here that your policy covers incapacity or death but not hospital stays. Let’s explore other policies that might meet your needs.", 5
+"I’ve been waiting in line for 45 minutes, and I feel like no one cares about my time.", "I understand how frustrating that must feel. Let me prioritize your order and make sure you’re taken care of quickly.", 5
+"I can’t figure out how to redeem my points for a discount, and I’m ready to give up.", "I see what’s happening. Let’s go through the process step by step, and I’ll make sure you can apply your points successfully.", 5
+"I was charged twice for my coffee, and I’m worried I won’t get my money back.", "I completely understand your concern. Let me check your transaction history and initiate a refund for the duplicate charge.", 5
