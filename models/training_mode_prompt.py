@@ -1,10 +1,46 @@
 import openai
+import random
+from models.scenario_data import data  # Import the data dictionary from data.py
+
+# The rest of your code stays the same
+factors = list(data.keys())
+factor_weights = [data[factor]["value"] for factor in factors]
+
+selected_factor = random.choices(factors, weights=factor_weights, k=1)[0]
+
+variables = data[selected_factor]["variables"]
+variable_names = list(variables.keys())
+variable_weights = list(variables.values())
+
+selected_variable = random.choices(variable_names, weights=variable_weights, k=1)[0]
+
+issue_types = ["Customer induced issue", "Communication induced error", "Employee induced error", "IT induced error", "Accidental issue"]
+
+selected_issue = random.choice(issue_types)
+
+customer_types = ["Regular customer", "New customer", "Walk-in customer", "Online order customer", "Returning customer"]
+selected_customer_type = random.choice(customer_types)
+
+main_prompt = f"""
+You are a customer service expert in a coffee shop setting. Based on the selected factors and issues below, create a relevant coffee shop customer service training situation. The scenario should identify the type of service challenge, the customer type, and describe the customer service challenge that could occur.
+
+1. **Selected Factor**: {selected_factor}
+2. **Selected Variable**: {selected_variable}
+3. **Selected Issue**: {selected_issue}
+4. **Customer Type**: {selected_customer_type}
+
+Based on these factors, create a scenario in which a coffee shop customer faces this issue. The scenario should include:
+- A description of the **customer type** (e.g., regular, new, walk-in, etc.).
+- The **type of service challenge** (e.g., communication induced error, customer induced issue, etc.).
+- A detailed **customer service situation** relevant to the coffee shop environment, incorporating the selected **factor** and **variable** in the context of the **issue**.
+- The situation should be usable as a training excersize for potential employees to see how they react. 
+
+Give me a less than 2 sentences description of the scenario that includes all the information above, include the 4 categories chosen explictly then write the scenario. 
+"""
 
 generation_prompt = {
     "role": "user",
-    "content": "Generate a coffee shop customer service scenario. The scenario should be no more than 1 to 3 sentences long."
-    "After generating the scenario, add 'How would you react to this situation?'"
-    "Your answer should not include any bold or italicized text."
+    "content": main_prompt
 }
 
 def call_to_API():
