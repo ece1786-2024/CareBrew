@@ -25,8 +25,17 @@
     </header>
     <div class="container">
         <p><strong>Scenario:</strong> {{ scenario }}</p>
-        <p><strong>Your Response:</strong> {{ user_response }}</p>
-        <p><strong>Evaluation:</strong> {{ processed_response }}</p>
+        <!-- <p><strong>Your Response:</strong> {{ user_response }}</p> -->
+        <!-- <p><strong>Evaluation:</strong> {{ processed_response }}</p> -->
+    </div>
+    <div class="container">
+        <p><strong>Chat History:</strong><br> {{ chat_session_text|safe }}</p>
+        <p><strong>Model Response:</strong> {{ model_response }}</p>
+        <form method="post" class="form-section">
+            <label for="user_input"><strong>User:</strong></label>
+            <textarea name="user_input" required></textarea>
+            <button type="submit">Run</button><br><br>
+        </form>
     </div>
     <a href="{{ url_for('training_mode') }}" class="back-button">Try another scenario</a>
     <a href="{{ url_for('base') }}" class="back-button">Home page</a>
