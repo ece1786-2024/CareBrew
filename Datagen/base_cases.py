@@ -13,8 +13,8 @@ with open('customer_service_responses.csv', mode='w', newline='') as file:
         for issue in scenarios[type]:
             for cause in cause_type: 
                 for customer in customer_types: 
-                    if row_count >= 10:
-                        break
+                    # if row_count >= 10:
+                    #     break
                     
                     prompt = f"""
                     In a coffee shop setting, there is a customer service issue based on the selected factors below, give me a standard customer service response. 
