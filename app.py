@@ -5,8 +5,6 @@ import pandas as pd
 # Import functions from the modules
 from models.training_mode_prompt import call_to_API as generate_scenario
 from models.training_mode_response import call_to_API as process_training_response
-from models.assistant_mode_response import call_to_API as generate_assistant_response
-from models.evaluation_mode_response import evaluate_input as evaluate_input
 
 app = Flask(__name__)
 app.secret_key = '1A2B3C4D5E'
@@ -44,37 +42,6 @@ def training_mode():
         return render_template('training_mode_response.html', scenario=generated_scenario, user_response=user_response, processed_response=processed_response)
 
     return render_template('training_mode_base.html', scenario=generated_scenario)
-
-
-# Route for Assistant Mode
-@app.route('/assistant', methods=['GET', 'POST'])
-def assistant_mode():
-    generated_response = None
-
-    # Process the form for user input in Assistant Mode
-    if request.method == 'POST' and 'user_scenario' in request.form:
-        user_scenario = request.form['user_scenario']
-        dropdown_model = request.form['dropdown']
-        generated_response = generate_assistant_response(user_scenario, dropdown_model)
-        return render_template('assistant_mode_response.html', user_scenario=user_scenario, generated_response=generated_response)
-
-    return render_template('assistant_mode_base.html')
-
-
-# route for evaluation
-@app.route('/evaluation', methods=['GET', 'POST'])
-def evaluation_mode():
-    if request.method == 'POST':
-        input_text = request.form['evaluation_input']
-        dropdown_model = request.form['dropdown']
-        
-        evaluation_result = evaluate_input(input_text, dropdown_model)
-        
-        return render_template('evaluation_mode_response.html', 
-                               evaluation_result=evaluation_result, 
-                               input_text=input_text)
-    
-    return render_template('evaluation_mode_base.html')
 
 
 if __name__ == '__main__':
