@@ -1,11 +1,13 @@
-import openai
+from openai import OpenAI
+client = OpenAI()
 
-generation_prompt = {
+# Define the system prompt
+system_prompt = [{
     "role": "system",
     "content": """
-    Given the scenario and the user's response, the goal is to analyze the user's response according to the following criteria:
-    Evaluation Rubrics:
-
+        Given the scenario and the user's response, the goal is to analyze the user's response according to the following criteria:
+        
+        Evaluation Rubrics:
         1. Clarity Dimension (1-3):
         - 1: Unclear Communication
           The response is vague, confusing, or overly complex. May use jargon or language difficult for a layperson to understand.
@@ -82,33 +84,35 @@ generation_prompt = {
           The response fully resolves the issue with a detailed, personalized solution and ensures customer satisfaction.
           Example: Customer asks for a refund, and the staff provide a step-by-step guide, timing, and reassurance of resolution.
 
-        Your Task:
-        1. Evaluate the customer service response based on Clarity, Reliability, Empathy, Relevance, and Resolution.
-        2. Assign a rating for each dimension (based on the rubric above), each on a separate line.
-        3. Provide a justification for each rating in 1-2 sentences.
-
         Output Format:
         Clarity: X (Justification: ...)
         Reliability: X (Justification: ...)
         Empathy: X (Justification: ...)
         Relevance: X (Justification: ...)
         Resolution: X (Justification: ...)
-        Overall Score: X
+        Overall Score: [Clarity + Reliability + Empathy + Relevance + Resolution]/23
     """
-}
+}]
 
-def call_to_API(training_mode_prompt, user_response):
-    messages = [
-        {"role": "assistant", "content": "Scenario: " + training_mode_prompt},
-        {"role": "user", "content": "User response: " + user_response},
-        generation_prompt
+def call_to_API(chat_session, assistant_prompt, user_response):
+    # Add the assistant prompt to the session
+    chat_session = chat_session + [
+        {"role": "assistant", "content": assistant_prompt},
+        {"role": "user", "content": user_response}
     ]
     
-    response = openai.chat.completions.create(
-        model="gpt-4o",
+    # Combine the system prompt with the updated chat session
+    messages = system_prompt + chat_session
+    
+    # Call the OpenAI API
+    response = client.chat.completions.create(
+        model="gpt-4",
         messages=messages,
         temperature=1,
-        top_p=1
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
     )
     
-    return response.choices[0].message.content.strip()
+    # Access the response message using dot notation
+    return response.choices[0].message.content.strip(), chat_session
