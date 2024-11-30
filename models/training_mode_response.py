@@ -91,39 +91,6 @@ system_prompt = [{
         Relevance: X (Justification: ...)
         Resolution: X (Justification: ...)
         Overall Score: [Clarity + Reliability + Empathy + Relevance + Resolution]/23
-        Please provide the output in JSON format with the following structure:
-        {
-          "Clarity":
-            {
-              "Score": integer
-              "Justification": string
-            },
-          "Reliability":
-            {
-              "Score": integer
-              "Justification": string
-            },
-          "Empathy":
-            {
-              "Score": integer
-              "Justification": string
-            },
-          "Relevance":
-            {
-              "Score": integer
-              "Justification": string
-            },
-          "Resolution":
-            {
-              "Score": integer
-              "Justification": string
-            },
-          "Overall Score":
-            {
-              "Score": Sum of Score by Category (should be an integer)
-              "Justification": Percentage of Sum of Score over Total Score Available (Sum of Score / 23)
-            }
-        }
     """
 }]
 
