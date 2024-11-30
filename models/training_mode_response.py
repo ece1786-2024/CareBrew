@@ -127,7 +127,7 @@ system_prompt = [{
     """
 }]
 
-def call_to_API(chat_session, assistant_prompt, user_response, number_responses):
+def call_to_API(chat_session, assistant_prompt, user_response):
     # Add the assistant prompt to the session
     chat_session = chat_session + [
         {"role": "assistant", "content": assistant_prompt},
@@ -144,12 +144,8 @@ def call_to_API(chat_session, assistant_prompt, user_response, number_responses)
         temperature=1,
         top_p=1,
         frequency_penalty=0,
-        presence_penalty=0,
-        n=number_responses
+        presence_penalty=0
     )
     
-    model_response = []
-    for n in range(number_responses):
-        model_response.append(response.choices[n].message.content.strip())
     # Access the response message using dot notation
-    return model_response, chat_session
+    return response.choices[0].message.content.strip(), chat_session

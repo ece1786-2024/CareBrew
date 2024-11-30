@@ -1,138 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>CareBrew - Training Mode</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding-top: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 900px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .logo {
-            width: 100px;
-            height: 100px;
-            margin-right: 15px;
-        }
-
-        h1 {
-            font-size: 2em;
-            margin: 0;
-        }
-
-        .container {
-            width: 80%;
-            max-width: 800px;
-            border: 1px solid #ddd;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        textarea {
-            width: 100%;
-            margin-top: 10px;
-            height: 100px;
-        }
-
-        select {
-            width: 50px;
-        }
-
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-
-        .form-section {
-            margin-top: 20px;
-        }
-
-        p {
-            margin-top: 15px;
-        }
-
-        .back-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .back-button:hover {
-            background-color: #0056b3;
-        }
-
-        .tile-container {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            max-width: 80%;
-        }
-
-        .tile {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #e0e0e0;
-            border: 2px solid transparent;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .tile:hover {
-            background-color: #cce4ff;
-        }
-
-        .tile.selected {
-            background-color: #4caf50;
-            color: white;
-            border-color: #388e3c;
-        }
+        body { font-family: Arial, sans-serif; margin: 0; padding-top: 20px; display: flex; flex-direction: column; align-items: center; }
+        .header { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 900px; margin-bottom: 20px; text-align: center; }
+        .logo { width: 100px; height: 100px; margin-right: 15px; }
+        h1 { font-size: 2em; margin: 0; }
+        .container { width: 80%; max-width: 800px; border: 1px solid #ddd; padding: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+        textarea { width: 100%; margin-top: 10px; height: 100px; }
+        button { margin-top: 10px; padding: 10px 20px; font-size: 16px; }
+        .form-section { margin-top: 20px; }
+        p { margin-top: 15px; }
+        .back-button { margin-top: 20px; padding: 10px 20px; background-color: #007BFF; color: #fff; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; }
+        .back-button:hover { background-color: #0056b3; }
     </style>
 </head>
-
 <body>
     <header class="header">
         <img src="{{ url_for('static', filename='logo.png') }}" alt="CareBrew Logo" class="logo">
         <h1>Training Mode</h1>
     </header>
     <div class="container">
-        <p><strong>Scenario:</strong> {{ scenario }}</p>
+        <p><strong>Chat History:</strong><br> {{ chat_session_text|safe }}</p>
     </div>
     <div class="container">
-        <p><strong>Chat History:</strong><br> {{ chat_session_text|safe }}</p>
-        <p><strong>Model Response:</strong><br> {{ model_response_beautified|safe }}</p>
-        <label id="tileLabel"><strong>Choose the model response to proceed (first one chosen by default):</strong></label>
-        <div class="tile-container" id="tileContainer"></div>
+        <p><strong>Model Response:</strong></p>
+        {{ model_response|safe }}
         <form method="post" class="form-section">
-            <input type="hidden" name="selected_model_response" id="selectedTile">
             <label for="user_input"><strong>User:</strong></label>
             <textarea name="user_input" required></textarea>
-            <label for="number_response">Choose how many model responses you wish to see:</label>
+            <label for="number_response">Choose how many suggestions you wish to see:</label>
             <select id="number_response" name="number_response">
                 <option value="1" selected>1</option>
                 <option value="2">2</option>
@@ -141,39 +41,10 @@
                 <option value="5">5</option>
             </select>
             <br>
-            <button type="submit">Run</button><br><br>
+            <button type="submit">Evaluate</button><br><br>
         </form>
-        <script>
-            const numberOfTiles = parseInt('{{ number_response }}', 10) || 1;
-            const tileContainer = document.getElementById('tileContainer');
-            const tileLabel = document.getElementById('tileLabel');
-            const selectedTileInput = document.getElementById('selectedTile');
-            selectedTileInput.value = 1;
-
-            if (numberOfTiles > 1) {
-                tileLabel.style.display = 'block';
-                for (let i = 1; i <= numberOfTiles; i++) {
-                    const tile = document.createElement('div');
-                    tile.classList.add('tile');
-                    tile.textContent = i;
-                    tile.dataset.value = i; // Store the tile's value as a data attribute
-                    tileContainer.appendChild(tile);
-                }
-
-                const tiles = document.querySelectorAll('.tile');
-                tiles.forEach(tile => {
-                    tile.addEventListener('click', () => {
-                        tiles.forEach(t => t.classList.remove('selected'));
-                        tile.classList.add('selected');
-                        selectedTileInput.value = tile.dataset.value;
-                    });
-                });
-            } else { tileLabel.style.display = 'none'; } 
-        </script>
     </div>
-
     <a href="{{ url_for('training_mode') }}" class="back-button">Try another scenario</a>
     <a href="{{ url_for('base') }}" class="back-button">Home page</a>
 </body>
-
 </html>

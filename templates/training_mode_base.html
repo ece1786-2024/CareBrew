@@ -11,7 +11,6 @@
         h1 { font-size: 2em; margin: 0; }
         .container { width: 80%; max-width: 800px; border: 1px solid #ddd; padding: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
         textarea { width: 100%; margin-top: 10px; height: 100px; }
-        select { width: 50px;}
         button { margin-top: 10px; padding: 10px 20px; font-size: 16px; }
         .form-section { margin-top: 20px; }
         p { margin-top: 15px; }
@@ -26,13 +25,14 @@
     </header>
     <div class="container">
         <p><strong>Scenario:</strong> {{ scenario }}</p>
+        <p><strong>Question:</strong> {{ question }}</p>
         <form method="get" class="form-section">
             <button type="submit" name="shuffle">Shuffle Scenario</button>
         </form>
         <form method="post" class="form-section">
             <label for="user_response">Your Response:</label>
             <textarea name="user_response" required></textarea>
-            <label for="number_response">Choose how many model responses you wish to see:</label>
+            <label for="number_response">Choose how many suggestions you wish to see:</label>
             <select id="number_response" name="number_response">
                 <option value="1" selected>1</option>
                 <option value="2">2</option>
