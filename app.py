@@ -91,12 +91,6 @@ def training_mode():
 
     return render_template('training_mode_base.html', scenario=generated_scenario)
 
-def display_model_response(model_response: list) -> str:
-    mrb = ''
-    for i in range(len(model_response)):
-        mrb += f'<br><strong>Response {i+1}</strong>:<br>{json_to_df_html(model_response[i])}'
-    return mrb
-
 def json_to_df_html(json_str: str) -> str:
     try:
         structured_data = json.loads(json_str)
