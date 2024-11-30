@@ -27,7 +27,8 @@
         <p><strong>Chat History:</strong><br> {{ chat_session_text|safe }}</p>
     </div>
     <div class="container">
-        <p><strong>Model Response:</strong> {{ model_response }}</p>
+        <p><strong>Model Response:</strong></p>
+        {{ model_response|safe }}
         <form method="post" class="form-section">
             <label for="user_input"><strong>User:</strong></label>
             <textarea name="user_input" required></textarea>

@@ -73,7 +73,7 @@ def training_mode():
             scenario=generated_scenario,
             question=user_question,
             chat_session_text=chat_session_text,
-            model_response=model_response
+            model_response=json_to_df_html(model_response)
         )
 
     elif request.method == 'POST' and 'user_input' in request.form:
@@ -89,7 +89,7 @@ def training_mode():
             scenario=generated_scenario, 
             question=user_question,
             chat_session_text=chat_session_text,
-            model_response=model_response
+            model_response=json_to_df_html(model_response)
         )
 
     return render_template('training_mode_base.html', scenario=generated_scenario, question=user_question)
