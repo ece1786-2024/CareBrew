@@ -24,7 +24,7 @@
         <h1>Training Mode</h1>
     </header>
     <div class="container">
-        <p><strong>Scenario:</strong> {{ scenario }}</p>
+        <p><strong>Chat History:</strong><br> {{ chat_session_text|safe }}</p>
     </div>
     <div class="container">
         <p><strong>Chat History:</strong><br> {{ chat_session_text|safe }}</p>
@@ -32,7 +32,7 @@
         <form method="post" class="form-section">
             <label for="user_input"><strong>User:</strong></label>
             <textarea name="user_input" required></textarea>
-            <button type="submit">Run</button><br><br>
+            <button type="submit">Evaluate</button><br><br>
         </form>
     </div>
     <a href="{{ url_for('training_mode') }}" class="back-button">Try another scenario</a>

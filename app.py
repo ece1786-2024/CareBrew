@@ -70,7 +70,8 @@ def training_mode():
 
         return render_template(
             'training_mode_response.html',
-            scenario=generated_scenario+user_question,
+            scenario=generated_scenario,
+            question=user_question,
             chat_session_text=chat_session_text,
             model_response=model_response
         )
@@ -85,12 +86,13 @@ def training_mode():
 
         return render_template(
             'training_mode_response.html',
-            scenario=generated_scenario+user_question,
+            scenario=generated_scenario, 
+            question=user_question,
             chat_session_text=chat_session_text,
             model_response=model_response
         )
 
-    return render_template('training_mode_base.html', scenario=generated_scenario+user_question,)
+    return render_template('training_mode_base.html', scenario=generated_scenario, question=user_question)
 
 def display_model_response(model_response: list) -> str:
     mrb = ''
