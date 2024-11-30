@@ -5,6 +5,7 @@ import json
 
 # Import functions from the modules
 from models.training_mode_prompt import call_to_API as generate_scenario
+from models.training_mode_prompt_user_question import call_to_API as generate_user_question
 from models.training_mode_retrieval import get_baseline as retrieve_baseline
 from models.training_mode_response import call_to_API as process_training_response
 
@@ -23,6 +24,8 @@ def base():
 def training_mode():
     if request.method == 'POST' and 'generated_scenario' in session:
         generated_scenario = session['generated_scenario']
+        user_question = ['user_question']
+
         baseline_response = retrieve_baseline(generated_scenario)
         session['base_line_response'] = baseline_response
     else:
@@ -30,6 +33,9 @@ def training_mode():
         session.clear()
         generated_scenario = generate_scenario()
         session['generated_scenario'] = generated_scenario
+        user_question = generate_user_question(generated_scenario)
+        session['user_question'] = user_question
+
         baseline_response = retrieve_baseline(generated_scenario)
         session['base_line_response'] = baseline_response
 
@@ -43,6 +49,9 @@ def training_mode():
         session.clear()  # Clears the entire session when shuffle button is clicked
         generated_scenario = generate_scenario()
         session['generated_scenario'] = generated_scenario
+        user_question = generate_user_question(generated_scenario)
+        session['user_question'] = user_question
+
         baseline_response = retrieve_baseline(generated_scenario)
         session['base_line_response'] = baseline_response
 
@@ -61,7 +70,7 @@ def training_mode():
 
         return render_template(
             'training_mode_response.html',
-            scenario=generated_scenario,
+            scenario=generated_scenario+user_question,
             chat_session_text=chat_session_text,
             model_response=model_response
         )
@@ -76,12 +85,12 @@ def training_mode():
 
         return render_template(
             'training_mode_response.html',
-            scenario=generated_scenario,
+            scenario=generated_scenario+user_question,
             chat_session_text=chat_session_text,
             model_response=model_response
         )
 
-    return render_template('training_mode_base.html', scenario=generated_scenario)
+    return render_template('training_mode_base.html', scenario=generated_scenario+user_question,)
 
 def display_model_response(model_response: list) -> str:
     mrb = ''
