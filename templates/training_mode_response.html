@@ -125,7 +125,7 @@
     </div>
     <div class="container">
         <p><strong>Chat History:</strong><br> {{ chat_session_text|safe }}</p>
-        <p><strong>Model Response:</strong><br> {{ model_response_beautified|safe }}</p>
+        <p><strong>Model Response:</strong> {{ model_response }}</p>
         <label id="tileLabel"><strong>Choose the model response to proceed (first one chosen by default):</strong></label>
         <div class="tile-container" id="tileContainer"></div>
         <form method="post" class="form-section">

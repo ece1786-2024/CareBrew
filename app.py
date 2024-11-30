@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, session
 import pandas as pd
-import json
 
 # Import functions from the modules
 from models.training_mode_prompt import call_to_API as generate_scenario
@@ -47,7 +46,6 @@ def training_mode():
         session['chat_session'] = chat_session
         session['chat_session_text'] = chat_session_text
         session['model_response'] = model_response
-        model_response_beautified = display_model_response(model_response)
 
         # Save data to CSV if requested
         if 'save_data' in request.form:
@@ -58,7 +56,6 @@ def training_mode():
             scenario=generated_scenario,
             chat_session_text=chat_session_text,
             model_response=model_response,
-            model_response_beautified=model_response_beautified,
             number_response=number_response
         )
 
@@ -84,20 +81,6 @@ def training_mode():
 
     return render_template('training_mode_base.html', scenario=generated_scenario)
 
-def display_model_response(model_response: list) -> str:
-    mrb = ''
-    for i in range(len(model_response)):
-        mrb += f'<br><strong>Response {i+1}</strong>:<br>{json_to_df_html(model_response[i])}'
-    return mrb
-
-def json_to_df_html(json_str: str) -> str:
-    try:
-        structured_data = json.loads(json_str)
-        df = pd.DataFrame(structured_data)
-        df_html = df.to_html(classes='table table-striped', index=False) 
-        return df_html
-    except json.JSONDecodeError as e:
-            print("Failed to parse response:", e)
 
 def process_chat_session(chat_session: list) -> str:
     """
