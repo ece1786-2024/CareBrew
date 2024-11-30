@@ -1,2 +1,6 @@
+.gitignore
 /.venv
 /venv
+models/__pycache__/
+models/__pycache__/training_mode_prompt.cpython-310.pyc
+models/__pycache__/training_mode_response.cpython-310.pyc
