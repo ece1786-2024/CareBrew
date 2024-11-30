@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, session
+import openai
 import pandas as pd
 import json
 
@@ -48,8 +49,7 @@ def training_mode():
     # Process user response in Training Mode
     elif request.method == 'POST' and 'user_response' in request.form:
         user_response = request.form['user_response']
-        number_response = int(request.form['number_response'])
-        model_response, chat_session = process_training_response(chat_session, generated_scenario, user_response, number_response)
+        model_response, chat_session = process_training_response(chat_session, generated_scenario, user_response)
         chat_session_text = process_chat_session(chat_session)
         session['chat_session'] = chat_session
         session['chat_session_text'] = chat_session_text
@@ -64,18 +64,12 @@ def training_mode():
             'training_mode_response.html',
             scenario=generated_scenario,
             chat_session_text=chat_session_text,
-            model_response=model_response,
-            model_response_beautified=model_response_beautified,
-            number_response=number_response
+            model_response=model_response
         )
 
     elif request.method == 'POST' and 'user_input' in request.form:
         user_input = request.form['user_input']
-        number_response = int(request.form['number_response'])
-        selected_model_response = int(request.form['selected_model_response'])
-        print(selected_model_response)
-        model_response = model_response[selected_model_response-1]
-        model_response, chat_session = process_training_response(chat_session, model_response, user_input, number_response)
+        model_response, chat_session = process_training_response(chat_session, model_response, user_input)
         chat_session_text = process_chat_session(chat_session)
         session['chat_session'] = chat_session
         session['chat_session_text'] = chat_session_text
@@ -85,8 +79,7 @@ def training_mode():
             'training_mode_response.html',
             scenario=generated_scenario,
             chat_session_text=chat_session_text,
-            model_response=model_response,
-            number_response=number_response
+            model_response=model_response
         )
 
     return render_template('training_mode_base.html', scenario=generated_scenario)
