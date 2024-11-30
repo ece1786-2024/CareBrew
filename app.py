@@ -54,7 +54,6 @@ def training_mode():
         session['chat_session'] = chat_session
         session['chat_session_text'] = chat_session_text
         session['model_response'] = model_response
-        model_response_beautified = display_model_response(model_response)
 
         # Save data to CSV if requested
         if 'save_data' in request.form:
