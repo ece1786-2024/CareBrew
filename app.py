@@ -4,6 +4,7 @@ import json
 
 # Import functions from the modules
 from models.training_mode_prompt import call_to_API as generate_scenario
+from models.training_mode_retrieval import get_baseline as retrieve_baseline
 from models.training_mode_response import call_to_API as process_training_response
 
 app = Flask(__name__)
@@ -21,11 +22,15 @@ def base():
 def training_mode():
     if request.method == 'POST' and 'generated_scenario' in session:
         generated_scenario = session['generated_scenario']
+        baseline_response = retrieve_baseline(generated_scenario)
+        session['base_line_response'] = baseline_response
     else:
         # Generate a scenario using the function from training_mode_prompt.py
         session.clear()
         generated_scenario = generate_scenario()
         session['generated_scenario'] = generated_scenario
+        baseline_response = retrieve_baseline(generated_scenario)
+        session['base_line_response'] = baseline_response
 
     # Initialize chat session variables
     chat_session = session.get('chat_session', [])
@@ -37,6 +42,8 @@ def training_mode():
         session.clear()  # Clears the entire session when shuffle button is clicked
         generated_scenario = generate_scenario()
         session['generated_scenario'] = generated_scenario
+        baseline_response = retrieve_baseline(generated_scenario)
+        session['base_line_response'] = baseline_response
 
     # Process user response in Training Mode
     elif request.method == 'POST' and 'user_response' in request.form:
