@@ -35,7 +35,7 @@ Based on these factors, create a scenario in which a coffee shop customer faces 
 - A detailed **customer service situation** relevant to the coffee shop environment, incorporating the selected **factor** and **variable** in the context of the **issue**.
 - The situation should be usable as a training excersize for potential employees to see how they react. 
 
-Give me a less than 2 sentences description of the scenario that includes all the information above, include the 4 categories chosen explictly then write the scenario. 
+The generated scneario should output in a plaintext, it should be detailed enough to include all the factors above and use those descriptions, but not exceed 3-4 sentences in total. Do not include the solution to the scenario in the prompt, this should be an issue that requires a proper customer service response. 
 """
 
 generation_prompt = {
