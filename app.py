@@ -122,13 +122,13 @@ def process_chat_session(chat_session: list) -> str:
         # Format conversation based on role
         if entry['role'] == 'assistant':
             if first_carebrew_response:
-                conversation += f"<br><strong>CareBrew</strong>: {text}<br>\n"
+                conversation += f"<br><strong>Scenario</strong>: {text}<br>\n"
                 first_carebrew_response = False
             else:
-                conversation += f"<br><strong>CareBrew</strong>: <br>\n"
+                conversation += f"<br><strong>Past Grading</strong>: <br>\n"
                 conversation += json_to_df_html(text)
         else:
-            conversation += f"<br><strong>User</strong>: {text}<br>\n"
+            conversation += f"<br><strong>User response</strong>: {text}<br>\n"
 
     return conversation
 

@@ -28,12 +28,12 @@
         {{ chat_session_text|safe }}
     </div>
     <div class="container">
-        <p><strong>Model Response:</strong></p>
+        <p><strong>Latest Grading:</strong></p>
         {{ model_response|safe }}
         <form method="post" class="form-section">
             <label for="user_input"><strong>User:</strong></label>
             <textarea name="user_input" required></textarea>
-            <label for="number_response">Choose how many suggestions you wish to see:</label>
+            <label for="number_response">Choose how many suggestions you wish to see in the next evaluation:</label>
             <select id="number_response" name="number_response">
                 <option value="1" selected>1</option>
                 <option value="2">2</option>
