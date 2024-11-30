@@ -108,6 +108,8 @@ def process_chat_session(chat_session: list) -> str:
     Process the chat session and return a formatted HTML string.
     """
     conversation = ""
+    first_carebrew_response = True  
+
     for entry in chat_session:
         # Access content dynamically based on type
         if isinstance(entry["content"], str):
@@ -119,9 +121,14 @@ def process_chat_session(chat_session: list) -> str:
 
         # Format conversation based on role
         if entry['role'] == 'assistant':
-            conversation += f"<br><strong>CareBrew</strong>: {text}<br>\n"
+            if first_carebrew_response:
+                conversation += f"<br><strong>CareBrew</strong>: {text}<br>\n"
+                first_carebrew_response = False
+            else:
+                conversation += f"<br><strong>CareBrew</strong>: {text}<br>\n"
         else:
             conversation += f"<br><strong>User</strong>: {text}<br>\n"
+
     return conversation
 
 
