@@ -27,11 +27,19 @@
         <p><strong>Chat History:</strong><br> {{ chat_session_text|safe }}</p>
     </div>
     <div class="container">
-        <p><strong>Chat History:</strong><br> {{ chat_session_text|safe }}</p>
         <p><strong>Model Response:</strong> {{ model_response }}</p>
         <form method="post" class="form-section">
             <label for="user_input"><strong>User:</strong></label>
             <textarea name="user_input" required></textarea>
+            <label for="number_response">Choose how many suggestions you wish to see:</label>
+            <select id="number_response" name="number_response">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <br>
             <button type="submit">Evaluate</button><br><br>
         </form>
     </div>
