@@ -16,28 +16,53 @@
         <div class="image-container" style="width: 50px; height: 50px; position: absolute; top: 30%; right: 0%;">
             <img src="{{ url_for('static', filename='bean.png') }}" alt="Bean 1" style="width: 100%; height: auto;">
         </div>
-        <div class="image-container" style="width: 50px; height: 50px; position: absolute; top: 30%; right: 5%;">
-            <img src="{{ url_for('static', filename='bean.png') }}" alt="Bean 2" style="transform: rotate(120deg);">
-        </div>
         -->
     </header>
 
     <div class="box" style="width: 25%; height: 40vh; position: absolute; bottom: 5%; left: 5%;">
         <h3 class="box-title">About CareBrew</h3>
         <div class="box-content">
-            This is some placeholder text inside the box.
+            CareBrew is an interactive AI-powered training module for customer service workers in coffeeshops.
+            This project was created by Dasha, Dylan, James, and Joe for ECE1786: Creative Applications of Natural Langauge Processing.
         </div>
     </div>
 
     <div class="box" style="width: 25%; height: 40vh; position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%);">
         <h3 class="box-title">Training</h3>
         <form action="{{ url_for('training_mode') }}">
-            <button type="submit">Click to get started</button>
+            <button type="submit" style="margin-top: 30px";>Click to get started</button>
         </form>
     </div>
 
     <div class="box" style="width: 25%; height: 40vh; position: absolute; bottom: 5%; right: 5%;">
         <h3 class="box-title">CareBrew Team</h3>
+        <div class="image-container" style="width: 70px; height: auto; position: absolute; top: 20%; left: 5%;">
+            <img src="{{ url_for('static', filename='coffee1.png') }}" alt="Coffee 1">
+        </div>
+        <p style="position: absolute; top: 25%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; color: #543310; text-align: center;">
+            Dasha: cinnamon chai latte
+        </p>
+
+        <div class="image-container" style="width: 70px; height: auto; position: absolute; top: 40%; right: 5%;">
+            <img src="{{ url_for('static', filename='coffee2.png') }}" alt="Coffee 2">
+        </div>
+        <p style="position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; color: #543310; text-align: center;">
+            Dylan [coffee order]
+        </p>
+
+        <div class="image-container" style="width: 70px; height: auto; position: absolute; top: 55%; left: 5%;">
+            <img src="{{ url_for('static', filename='coffee3.png') }}" alt="Coffee 3">
+        </div>
+        <p style="position: absolute; top: 65%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; color: #543310; text-align: center;">
+            James: hazelnut cold brew
+        </p>
+
+        <div class="image-container" style="width: 70px; height: auto; position: absolute; top: 75%; right: 5%;">
+            <img src="{{ url_for('static', filename='coffee4.png') }}" alt="Coffee 4">
+        </div>
+        <p style="position: absolute; top: 85%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; color: #543310; text-align: center;">
+            Joe [coffee order]
+        </p>
     </div>
 
     <div class="image-container" style="width: 200px; height: 200px; position: absolute; top: 5%; left: 5%;">
@@ -53,12 +78,6 @@
     <div class="image-container" style="width: 200px; height: 200px; position: absolute; top: 10%; right: 15%;">
         <img src="{{ url_for('static', filename='coffee4.png') }}" alt="Coffee 4" style="transform: scaleX(-1);">
     </div>
-        <!--
-        <img src="{{ url_for('static', filename='coffee2.png') }}" alt="Coffee 2">
-        <img src="{{ url_for('static', filename='coffee3.png') }}" alt="Coffee 3">
-        <img src="{{ url_for('static', filename='coffee4.png') }}" alt="Coffee 4">
-        <img src="{{ url_for('static', filename='bean.png') }}" alt="Coffee Bean">
-        //-->
 
 </body>
 </html>
