@@ -91,7 +91,6 @@ response = openai.chat.completions.create(
         {"role": "system", "content": "You are a customer service expert in a coffee shop setting."},
         {"role": "user", "content": prompt}  
     ],
-    max_tokens=200
 )
-
-print(response.choices[0].message.content.strip())
+# Debug message
+#print(response.choices[0].message.content.strip())

@@ -25,9 +25,9 @@ def training_mode():
     if request.method == 'POST' and 'generated_scenario' in session:
         generated_scenario = session['generated_scenario']
         user_question = ['user_question']
-
         baseline_response = retrieve_baseline(generated_scenario)
         session['base_line_response'] = baseline_response
+
     else:
         # Generate a scenario using the function from training_mode_prompt.py
         session.clear()
@@ -35,7 +35,6 @@ def training_mode():
         session['generated_scenario'] = generated_scenario
         user_question = generate_user_question(generated_scenario)
         session['user_question'] = user_question
-
         baseline_response = retrieve_baseline(generated_scenario)
         session['base_line_response'] = baseline_response
 
@@ -51,7 +50,6 @@ def training_mode():
         session['generated_scenario'] = generated_scenario
         user_question = generate_user_question(generated_scenario)
         session['user_question'] = user_question
-
         baseline_response = retrieve_baseline(generated_scenario)
         session['base_line_response'] = baseline_response
 
@@ -73,7 +71,8 @@ def training_mode():
             scenario=generated_scenario,
             question=user_question,
             chat_session_text=chat_session_text,
-            model_response=json_to_df_html(model_response)
+            model_response=json_to_df_html(model_response),
+            model_suggestion="Try again"
         )
 
     elif request.method == 'POST' and 'user_input' in request.form:
@@ -89,7 +88,8 @@ def training_mode():
             scenario=generated_scenario, 
             question=user_question,
             chat_session_text=chat_session_text,
-            model_response=json_to_df_html(model_response)
+            model_response=json_to_df_html(model_response),
+            model_suggestion="Try again"
         )
 
     return render_template('training_mode_base.html', scenario=generated_scenario, question=user_question)
