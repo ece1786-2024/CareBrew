@@ -35,6 +35,20 @@ body {
     height: 100px;
 }
 
+/* Graphic design */
+.image-container {
+    border: 2px solid #543310;
+    border-radius: 10px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
 /* Title styling */
 h1 {
     font-size: 2em;
@@ -59,16 +73,21 @@ h1 {
     height: 50vh;
     border-radius: 10px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
-    color: white;
+    border: 2px solid #543310;
+    background-color: #fccb82;
     font-size: 20px;
-    position: relative; /* Set the box as relative so the button is positioned relative to this */
+    position: relative;
+    padding: 20px;
 }
 
-/* Green Box styling (place the button on top of this box and center it) */
-.box:nth-child(2) {
-    background-color: #fccb82; /* Green box */
+.box-title {
+    font-size: 1.5em;
+    text-align: center;
+    margin-top: 5px;
+    color: #543310;
 }
 
 /* Button styling */
@@ -81,7 +100,7 @@ button {
     color: #fff;
     border-radius: 5px;
     position: absolute;
-    top: 65%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
@@ -95,13 +114,4 @@ button:hover {
 /* Form styling */
 form {
     margin: 0;
-}
-
-/* Box color for other boxes */
-.box:nth-child(1) {
-    background-color: #fccb82; /* Default red box */
-}
-
-.box:nth-child(3) {
-    background-color: #fccb82; /* Blue box */
 }
