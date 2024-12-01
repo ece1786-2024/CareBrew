@@ -97,6 +97,7 @@ def training_mode():
     # Return academy homepage
     return render_template('training_mode_base.html', scenario=generated_scenario, question=user_question)
 
+# Helper function for display purposes (rating)
 def json_to_df_html(json_str: str) -> str:
     try:
         structured_data = json.loads(json_str)
@@ -106,10 +107,8 @@ def json_to_df_html(json_str: str) -> str:
     except json.JSONDecodeError as e:
             print("Failed to parse response:", e)
 
+# Helper function for display purposes (chat history)
 def process_chat_session(chat_session: list) -> str:
-    """
-    Process the chat session and return a formatted HTML string.
-    """
     conversation = ""
     first_carebrew_response = True  
 
@@ -135,11 +134,8 @@ def process_chat_session(chat_session: list) -> str:
 
     return conversation
 
-
+# Save training in CSV file
 def save_training_data(scenario, user_response, model_response):
-    """
-    Save training data to a CSV file.
-    """
     try:
         # Load existing data if the file exists
         try:
@@ -160,16 +156,10 @@ def save_training_data(scenario, user_response, model_response):
     except Exception as e:
         print(f"Error saving data: {e}")
 
+# Helper function for display purposes (suggested actions)
 def format_suggestions(suggestions, num_suggestions):
     selected_suggestions = random.sample(suggestions, num_suggestions)
-
-    #debug prints
-    #print(suggestions)
-    #print(num_suggestions)
-    #print(selected_suggestions)
-
     return selected_suggestions
-
 
 if __name__ == '__main__':
     app.run(debug=True)
