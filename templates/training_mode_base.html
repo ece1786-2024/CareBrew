@@ -4,92 +4,8 @@
     <meta charset="UTF-8">
     <title>CareBrew - Training Mode</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding-top: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #FFF0D1;
-        }
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 900px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .logo {
-            width: 100px;
-            height: 100px;
-            margin-right: 15px;
-        }
-        h1 {
-            font-size: 2em;
-            margin: 0;
-        }
-        .container {
-            width: 80%;
-            max-width: 800px;
-            border: 1px solid #ddd;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        textarea {
-            width: 100%;
-            margin-top: 10px;
-            height: 100px;
-        }
-        button {
-            margin-top: 0px;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 8px;
-            background-color: #543310;
-            color: white;
-            border: 2px solid #543310;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #8D493A;
-            border: 2px solid #8D493A;
-        }
-        .form-section {
-            margin-top: 20px;
-            display: block;
-        }
-        .button-container {
-            display: flex;
-            justify-content: flex-start;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .training-button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-        .back-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #543310;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .back-button:hover {
-            background-color: #8D493A;
-        }
-    </style>
-</head>
 <body>
-    <header class="header">
+    <header class="header-container">
         <img src="{{ url_for('static', filename='logo.png') }}" alt="CareBrew Logo" class="logo">
         <h1>Training Mode</h1>
     </header>
@@ -113,11 +29,11 @@
                 <option value="5">5</option>
             </select>
             
-            <div class="button-container">
+            <div class="button" style="margin-top: 15px; display: block;">
                 <button type="submit" class="training-button">Evaluate</button>
             </div>
             
-            <label>
+            <label style="margin-top: 15px; display: block;">
                 <input type="checkbox" name="save_data" value="true" checked> Contribute your response to improve CareBrew ❤️
             </label>
         </form>

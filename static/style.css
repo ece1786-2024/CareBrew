@@ -10,7 +10,6 @@ body {
     background-color: #FFF0D1;
 }
 
-/* Header container styling */
 .header-container {
     display: flex;
     flex-direction: column;
@@ -20,7 +19,6 @@ body {
     text-align: center;
 }
 
-/* Title Box styling */
 .title-box {
     background-color: #fccb82;
     padding: 20px 30px;
@@ -29,13 +27,11 @@ body {
     margin-bottom: 10px;
 }
 
-/* Logo styling */
 .logo {
     width: 100px;
     height: 100px;
 }
 
-/* Graphic design */
 .image-container {
     overflow: hidden;
     display: inline-block;
@@ -47,13 +43,11 @@ body {
     object-fit: contain;
 }
 
-/* Title styling */
 h1 {
     font-size: 2em;
     margin: 0;
 }
 
-/* Sections container styling */
 .box-container {
     display: flex;
     justify-content: center;
@@ -65,7 +59,6 @@ h1 {
     z-index: 5;
 }
 
-/* Individual box styling */
 .box {
     border-radius: 10px;
     display: flex;
@@ -90,7 +83,6 @@ h1 {
     padding: 0px;
 }
 
-/* Button styling */
 button {
     padding: 15px 30px;
     font-size: 18px;
@@ -102,12 +94,44 @@ button {
     z-index: 10;
 }
 
-/* Button hover effect */
 button:hover {
     background-color: #8D493A;
 }
 
-/* Form styling */
 form {
     margin: 0;
+}
+
+.form-section {
+    margin-top: 20px;
+    display: block;
+}
+
+textarea {
+    width: 100%;
+    margin-top: 10px;
+    height: 100px;
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    padding-bottom: 20px;
+    background-color: #543310;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.back-button:hover {
+    background-color: #8D493A;
 }
