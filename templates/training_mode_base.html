@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>CareBrew - Training Mode</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
 <body>
-    <header class="header-container">
+    <header class="header">
         <img src="{{ url_for('static', filename='logo.png') }}" alt="CareBrew Logo" class="logo">
         <h1>Training Mode</h1>
     </header>
@@ -29,11 +30,11 @@
                 <option value="5">5</option>
             </select>
             
-            <div class="button" style="margin-top: 15px; display: block;">
-                <button type="submit" class="training-button">Evaluate</button>
+            <div class="button">
+                <button type="submit" style="margin-top: 10px; margin-bottom: 10px;">Evaluate</button>
             </div>
             
-            <label style="margin-top: 15px; display: block;">
+            <label>
                 <input type="checkbox" name="save_data" value="true" checked> Contribute your response to improve CareBrew ❤️
             </label>
         </form>
