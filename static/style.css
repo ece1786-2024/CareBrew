@@ -37,8 +37,6 @@ body {
 
 /* Graphic design */
 .image-container {
-    border: 2px solid #543310;
-    border-radius: 10px;
     overflow: hidden;
     display: inline-block;
 }
@@ -69,14 +67,12 @@ h1 {
 
 /* Individual box styling */
 .box {
-    width: 30%;
-    height: 50vh;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    border: 2px solid #543310;
+    border: 5px solid #543310;
     background-color: #fccb82;
     font-size: 20px;
     position: relative;
@@ -86,8 +82,12 @@ h1 {
 .box-title {
     font-size: 1.5em;
     text-align: center;
-    margin-top: 5px;
+    margin-top: 0px;
     color: #543310;
+}
+
+.box-content {
+    padding: 10px;
 }
 
 /* Button styling */
@@ -99,10 +99,6 @@ button {
     background-color: #543310;
     color: #fff;
     border-radius: 5px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     z-index: 10;
 }
 

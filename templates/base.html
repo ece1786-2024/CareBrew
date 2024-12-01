@@ -6,15 +6,27 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <header class="header-container">
-        <div class="title-box">
+    <header class="header-container" style="display: flex; align-items: center; position: relative;">
+        <div class="title-box" style="background-color: #fccb82; padding: 20px; border: 5px solid #543310; border-radius: 10px;">
             <h1>Welcome to CareBrew!</h1>
         </div>
-        <img src="{{ url_for('static', filename='logo.png') }}" alt="CareBrew Logo" class="logo">
+        
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="CareBrew Logo" class="logo" style="width: 100px; height: 100px; margin-left: 20px;">
+        <!--
+        <div class="image-container" style="width: 50px; height: 50px; position: absolute; top: 30%; right: 0%;">
+            <img src="{{ url_for('static', filename='bean.png') }}" alt="Bean 1" style="width: 100%; height: auto;">
+        </div>
+        <div class="image-container" style="width: 50px; height: 50px; position: absolute; top: 30%; right: 5%;">
+            <img src="{{ url_for('static', filename='bean.png') }}" alt="Bean 2" style="transform: rotate(120deg);">
+        </div>
+        -->
     </header>
 
     <div class="box" style="width: 25%; height: 40vh; position: absolute; bottom: 5%; left: 5%;">
         <h3 class="box-title">About CareBrew</h3>
+        <div class="box-content">
+            This is some placeholder text inside the box.
+        </div>
     </div>
 
     <div class="box" style="width: 25%; height: 40vh; position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%);">
@@ -27,6 +39,26 @@
     <div class="box" style="width: 25%; height: 40vh; position: absolute; bottom: 5%; right: 5%;">
         <h3 class="box-title">CareBrew Team</h3>
     </div>
+
+    <div class="image-container" style="width: 200px; height: 200px; position: absolute; top: 5%; left: 5%;">
+        <img src="{{ url_for('static', filename='coffee1.png') }}" alt="Coffee 1">
+    </div>
+    <div class="image-container" style="width: 200px; height: 200px; position: absolute; top: 10%; left: 15%;">
+        <img src="{{ url_for('static', filename='coffee2.png') }}" alt="Coffee 2">
+    </div>
+
+    <div class="image-container" style="width: 200px; height: 200px; position: absolute; top: 5%; right: 5%;">
+        <img src="{{ url_for('static', filename='coffee3.png') }}" alt="Coffee 3">
+    </div>
+    <div class="image-container" style="width: 200px; height: 200px; position: absolute; top: 10%; right: 15%;">
+        <img src="{{ url_for('static', filename='coffee4.png') }}" alt="Coffee 4" style="transform: scaleX(-1);">
+    </div>
+        <!--
+        <img src="{{ url_for('static', filename='coffee2.png') }}" alt="Coffee 2">
+        <img src="{{ url_for('static', filename='coffee3.png') }}" alt="Coffee 3">
+        <img src="{{ url_for('static', filename='coffee4.png') }}" alt="Coffee 4">
+        <img src="{{ url_for('static', filename='bean.png') }}" alt="Coffee Bean">
+        //-->
 
 </body>
 </html>
