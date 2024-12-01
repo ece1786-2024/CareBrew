@@ -1,4 +1,6 @@
 import openai
+import re
+
 
 #This part is copy pasted from training_mode_response, but altered for the purposes of suggestions
 def rate_baseline_response(generated_scenario, user_response):
@@ -108,8 +110,37 @@ def rate_baseline_response(generated_scenario, user_response):
     # Access the response message using dot notation
     return response.choices[0].message.content.strip()
 
+def parse_response(response):
+    # Split the response into individual suggestion blocks
+    lines = response.split('\n')
+    result = []
 
-def call_to_API(generated_scenario, user_response, baseline_response, num_suggestions):
+    for line in lines:
+        # Extract the category (e.g., Clarity, Reliability)
+        category_match = re.match(r"^(.*?):", line)
+        if not category_match:
+            continue
+        category = category_match.group(1)
+
+        # Extract the suggestion (text between colon and the parenthesis)
+        suggestion_match = re.search(r": (.*) \(", line)
+        if not suggestion_match:
+            continue
+        suggestion = suggestion_match.group(1).strip()
+
+        # Extract the rating (numbers within parentheses)
+        rating_match = re.search(r"\((\d+/\d+)\)", line)
+        if not rating_match:
+            continue
+        rating = rating_match.group(1)
+
+        # Append to the result array
+        result.append([category, {"suggestion": suggestion, "rating": rating}])
+
+    return result
+
+
+def call_to_API(generated_scenario, user_response, baseline_response):
     
     baseline_grading = rate_baseline_response(generated_scenario, baseline_response)
     generation_prompt = f"""
@@ -198,13 +229,12 @@ def call_to_API(generated_scenario, user_response, baseline_response, num_sugges
     The response fully resolves the issue with a detailed, personalized solution and ensures customer satisfaction.
     Example: Customer asks for a refund, and the staff provide a step-by-step guide, timing, and reassurance of resolution.
 
-    Please provide the output in the following structure:
+    Please provide the output in the following structure using plain text and no extra words: 
     Clarity: Suggestion (Clarity rating/3)
     Reliability: Suggestion (Reliability rating/4)
     Empathy: Suggestion (Empathy rating/5)
     Relevance: Suggestion (Relevance rating/5)
     Resolution: Suggestion (Resolution rating/5)
-
     """
 
     messages = [
@@ -218,4 +248,6 @@ def call_to_API(generated_scenario, user_response, baseline_response, num_sugges
         top_p=1
     )
     
-    return response.choices[0].message.content.strip()
+    generated_suggestions = parse_response(response.choices[0].message.content.strip())
+
+    return generated_suggestions

@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, session
 import openai
 import pandas as pd
 import json
+import random
 
 # Import functions from the modules
 from models.training_mode_prompt import call_to_API as generate_scenario
@@ -59,7 +60,8 @@ def training_mode():
         user_response = request.form['user_response']
         num_suggestions = int(request.form['number_response'])
         model_response, chat_session = process_training_response(chat_session, generated_scenario, user_response)
-        suggestions = generate_suggestions(generated_scenario, user_response, baseline_response, num_suggestions)
+        suggestions = generate_suggestions(generated_scenario, user_response, baseline_response)
+        formated_suggestions = format_suggestions(suggestions, num_suggestions)
         chat_session_text = process_chat_session(chat_session)
         session['chat_session'] = chat_session
         session['chat_session_text'] = chat_session_text
@@ -75,14 +77,15 @@ def training_mode():
             question=user_question,
             chat_session_text=chat_session_text,
             model_response=json_to_df_html(model_response),
-            model_suggestion=suggestions
+            model_suggestion=formated_suggestions
         )
 
     elif request.method == 'POST' and 'user_input' in request.form:
         user_input = request.form['user_input']
         num_suggestions = int(request.form['number_response'])
         model_response, chat_session = process_training_response(chat_session, model_response, user_input)
-        suggestions = generate_suggestions(generated_scenario, user_response, baseline_response, num_suggestions)
+        suggestions = generate_suggestions(generated_scenario, user_input, baseline_response)
+        formated_suggestions = format_suggestions(suggestions, num_suggestions)
         chat_session_text = process_chat_session(chat_session)
         session['chat_session'] = chat_session
         session['chat_session_text'] = chat_session_text
@@ -94,7 +97,7 @@ def training_mode():
             question=user_question,
             chat_session_text=chat_session_text,
             model_response=json_to_df_html(model_response),
-            model_suggestion=suggestions
+            model_suggestion=formated_suggestions
         )
 
     return render_template('training_mode_base.html', scenario=generated_scenario, question=user_question)
@@ -161,6 +164,15 @@ def save_training_data(scenario, user_response, model_response):
         df.to_csv('training_responses.csv', index=False)
     except Exception as e:
         print(f"Error saving data: {e}")
+
+def format_suggestions(suggestions, num_suggestions):
+    selected_suggestions = random.sample(suggestions, num_suggestions)
+
+    print(suggestions)
+    print(num_suggestions)
+    print(selected_suggestions)
+
+    return selected_suggestions
 
 
 if __name__ == '__main__':
