@@ -2,12 +2,14 @@ from flask import Flask, render_template, request, session
 import openai
 import pandas as pd
 import json
+import random
 
 # Import functions from the modules
 from models.training_mode_prompt import call_to_API as generate_scenario
 from models.training_mode_prompt_user_question import call_to_API as generate_user_question
 from models.training_mode_retrieval import get_baseline as retrieve_baseline
 from models.training_mode_response import call_to_API as process_training_response
+from models.training_mode_suggestions import call_to_API as generate_suggestions
 
 app = Flask(__name__)
 app.secret_key = '1A2B3C4D5E'
@@ -25,9 +27,9 @@ def training_mode():
     if request.method == 'POST' and 'generated_scenario' in session:
         generated_scenario = session['generated_scenario']
         user_question = ['user_question']
-
         baseline_response = retrieve_baseline(generated_scenario)
         session['base_line_response'] = baseline_response
+
     else:
         # Generate a scenario using the function from training_mode_prompt.py
         session.clear()
@@ -35,7 +37,6 @@ def training_mode():
         session['generated_scenario'] = generated_scenario
         user_question = generate_user_question(generated_scenario)
         session['user_question'] = user_question
-
         baseline_response = retrieve_baseline(generated_scenario)
         session['base_line_response'] = baseline_response
 
@@ -51,14 +52,16 @@ def training_mode():
         session['generated_scenario'] = generated_scenario
         user_question = generate_user_question(generated_scenario)
         session['user_question'] = user_question
-
         baseline_response = retrieve_baseline(generated_scenario)
         session['base_line_response'] = baseline_response
 
     # Process user response in Training Mode
     elif request.method == 'POST' and 'user_response' in request.form:
         user_response = request.form['user_response']
+        num_suggestions = int(request.form['number_response'])
         model_response, chat_session = process_training_response(chat_session, generated_scenario, user_response)
+        suggestions = generate_suggestions(generated_scenario, user_response, baseline_response)
+        formated_suggestions = format_suggestions(suggestions, num_suggestions)
         chat_session_text = process_chat_session(chat_session)
         session['chat_session'] = chat_session
         session['chat_session_text'] = chat_session_text
@@ -73,12 +76,16 @@ def training_mode():
             scenario=generated_scenario,
             question=user_question,
             chat_session_text=chat_session_text,
-            model_response=json_to_df_html(model_response)
+            model_response=json_to_df_html(model_response),
+            model_suggestion=formated_suggestions
         )
 
     elif request.method == 'POST' and 'user_input' in request.form:
         user_input = request.form['user_input']
+        num_suggestions = int(request.form['number_response'])
         model_response, chat_session = process_training_response(chat_session, model_response, user_input)
+        suggestions = generate_suggestions(generated_scenario, user_input, baseline_response)
+        formated_suggestions = format_suggestions(suggestions, num_suggestions)
         chat_session_text = process_chat_session(chat_session)
         session['chat_session'] = chat_session
         session['chat_session_text'] = chat_session_text
@@ -89,7 +96,8 @@ def training_mode():
             scenario=generated_scenario, 
             question=user_question,
             chat_session_text=chat_session_text,
-            model_response=json_to_df_html(model_response)
+            model_response=json_to_df_html(model_response),
+            model_suggestion=formated_suggestions
         )
 
     return render_template('training_mode_base.html', scenario=generated_scenario, question=user_question)
@@ -156,6 +164,16 @@ def save_training_data(scenario, user_response, model_response):
         df.to_csv('training_responses.csv', index=False)
     except Exception as e:
         print(f"Error saving data: {e}")
+
+def format_suggestions(suggestions, num_suggestions):
+    selected_suggestions = random.sample(suggestions, num_suggestions)
+
+    #debug prints
+    #print(suggestions)
+    #print(num_suggestions)
+    #print(selected_suggestions)
+
+    return selected_suggestions
 
 
 if __name__ == '__main__':

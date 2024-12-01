@@ -1,6 +1,8 @@
 import pandas as pd
 import openai
 
+pd.set_option('display.max_colwidth', None)
+
 def get_baseline(scenario):
     # Read the CSV file with the specified encoding
     df = pd.read_csv('models/customer_service_responses.csv', encoding='ISO-8859-1')
@@ -43,13 +45,13 @@ def get_baseline(scenario):
             {"role": "system", "content": "You are a customer service expert in a coffee shop setting."},
             {"role": "user", "content": prompt}  
         ],
-        max_tokens=200
     )
 
     response_text = response.choices[0].message.content.strip()
     
-    print(response_text)
-    print(prompt)
+    #Debug message
+    #print(response_text)
+    #print(prompt)
     
     customer_type = None
     cause_type = None
@@ -69,6 +71,10 @@ def get_baseline(scenario):
         (df['Issue'].str.lower() == issue_type.lower())
     ]
 
-
     full_response = matching_row['Response'].to_string(index=False)
+
+    #debug message
+    #print(full_response)
+    #print(matching_row)
+
     return full_response.replace("\n", " ").strip()

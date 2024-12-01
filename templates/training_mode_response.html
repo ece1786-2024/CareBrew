@@ -30,6 +30,18 @@
     <div class="container">
         <p><strong>Latest Grading:</strong></p>
         {{ model_response|safe }}
+        <p><strong>Suggestions for a better response:</strong></p>
+        <ul>
+            {% for suggestion in model_suggestion %}
+                <li>
+                    <strong>Category:</strong> {{ suggestion.0 }}
+                    <ul>
+                        <li><strong>Suggested improvement:</strong> {{ suggestion.1.suggestion }}</li>
+                        <li><strong>Potential rating:</strong> {{ suggestion.1.rating }}</li>
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
         <form method="post" class="form-section">
             <label for="user_input"><strong>User:</strong></label>
             <textarea name="user_input" required></textarea>
