@@ -168,9 +168,10 @@ def save_training_data(scenario, user_response, model_response):
 def format_suggestions(suggestions, num_suggestions):
     selected_suggestions = random.sample(suggestions, num_suggestions)
 
-    print(suggestions)
-    print(num_suggestions)
-    print(selected_suggestions)
+    #debug prints
+    #print(suggestions)
+    #print(num_suggestions)
+    #print(selected_suggestions)
 
     return selected_suggestions
 
