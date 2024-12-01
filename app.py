@@ -8,6 +8,7 @@ from models.training_mode_prompt import call_to_API as generate_scenario
 from models.training_mode_prompt_user_question import call_to_API as generate_user_question
 from models.training_mode_retrieval import get_baseline as retrieve_baseline
 from models.training_mode_response import call_to_API as process_training_response
+from models.training_mode_suggestions import call_to_API as generate_suggestions
 
 app = Flask(__name__)
 app.secret_key = '1A2B3C4D5E'
@@ -56,7 +57,9 @@ def training_mode():
     # Process user response in Training Mode
     elif request.method == 'POST' and 'user_response' in request.form:
         user_response = request.form['user_response']
+        num_suggestions = int(request.form['number_response'])
         model_response, chat_session = process_training_response(chat_session, generated_scenario, user_response)
+        suggestions = generate_suggestions(generated_scenario, user_response, baseline_response, num_suggestions)
         chat_session_text = process_chat_session(chat_session)
         session['chat_session'] = chat_session
         session['chat_session_text'] = chat_session_text
@@ -72,12 +75,14 @@ def training_mode():
             question=user_question,
             chat_session_text=chat_session_text,
             model_response=json_to_df_html(model_response),
-            model_suggestion="Try again"
+            model_suggestion=suggestions
         )
 
     elif request.method == 'POST' and 'user_input' in request.form:
         user_input = request.form['user_input']
+        num_suggestions = int(request.form['number_response'])
         model_response, chat_session = process_training_response(chat_session, model_response, user_input)
+        suggestions = generate_suggestions(generated_scenario, user_response, baseline_response, num_suggestions)
         chat_session_text = process_chat_session(chat_session)
         session['chat_session'] = chat_session
         session['chat_session_text'] = chat_session_text
@@ -89,7 +94,7 @@ def training_mode():
             question=user_question,
             chat_session_text=chat_session_text,
             model_response=json_to_df_html(model_response),
-            model_suggestion="Try again"
+            model_suggestion=suggestions
         )
 
     return render_template('training_mode_base.html', scenario=generated_scenario, question=user_question)

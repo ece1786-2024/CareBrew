@@ -5,26 +5,18 @@
 
 import openai
 
-generation_prompt = {
-    "role": "system",
-    "content": "The goal is to generate a question that prompts the user to respond as if they were the employee in this situation."
-    "Here is an example: "
+def call_to_API(generated_scenario, user_response, baseline_response, num_suggestions):
     
-    "Example scenario: A regular online order customer places their usual coffee order through the app, expecting pickup shortly. Due to a staff member’s oversight,"
-    "the order is prepared incorrectly and a different drink is served instead. Upon realizing the error, the customer, who relies on quick service while en route to work," 
-    "contacts the coffee shop. The customer's trust in the shop is shaken,"
-    "and they are seeking prompt and willing assistance to rectify the mistake, testing the staff's attitude and reactivity in resolving an employee-induced error."
+    generation_prompt = f"""
     
-    "Example response: As the employee handling this situation, how would you address the customer's concerns about their incorrect order while ensuring they feel heard and valued?" 
-    "Provide details on how you would communicate with the customer and the steps you would take to resolve the issue promptly"
+    This is a customer service scenario the user is presented with: {generated_scenario}
+    This is their answer on how they would react in the situation: {user_response}
+    Given that this is the baseline response for the situation: {baseline_response}
+    Provide {num_suggestions} on how the user can improve their response
+    """
 
-    "Now given the scenario below, generate a question that prompts the user to respond as if they were the employee in this situation."
-}
-
-def call_to_API(model_prompt):
     messages = [
-        generation_prompt,
-        {"role": "user", "content": model_prompt}
+        {"role": "user", "content": generation_prompt}
     ]
     
     response = openai.chat.completions.create(
