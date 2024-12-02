@@ -1,3 +1,4 @@
+# Evaluates the user response according to predefined rubric
 from openai import OpenAI
 client = OpenAI()
 
@@ -147,5 +148,5 @@ def call_to_API(chat_session, assistant_prompt, user_response):
         presence_penalty=0
     )
     
-    # Access the response message using dot notation
+    # Access the response message
     return response.choices[0].message.content.strip(), chat_session
