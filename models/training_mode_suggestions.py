@@ -93,7 +93,7 @@ def rate_baseline_response(generated_scenario, user_response):
     Empathy: X (Justification: ...)
     Relevance: X (Justification: ...)
     Resolution: X (Justification: ...)
-    Overall Score: [Clarity + Reliability + Empathy + Relevance + Resolution]/23
+    Overall Score: [Clarity + Reliability + Empathy + Relevance + Resolution]/22
     """
 
     messages = [
