@@ -1,8 +1,10 @@
+# Presents users with suggestions based on the output of data retrieval and the user's score
+# Each suggestion is also scored according to the rubric
 import openai
 import re
 
-
-#This part is copy pasted from training_mode_response, but altered for the purposes of suggestions
+# Adapted from training_mode_response.py
+# Rates the user's response
 def rate_baseline_response(generated_scenario, user_response):
     generation_prompt = f"""
     
@@ -107,9 +109,10 @@ def rate_baseline_response(generated_scenario, user_response):
         top_p=1
     )
     
-    # Access the response message using dot notation
+    # Access the response message
     return response.choices[0].message.content.strip()
 
+# Separates suggestions by rubric categories
 def parse_response(response):
     # Split the response into individual suggestion blocks
     lines = response.split('\n')
@@ -139,7 +142,8 @@ def parse_response(response):
 
     return result
 
-
+# Adapted from training_mode_response.py
+# Used to rate suggestions
 def call_to_API(generated_scenario, user_response, baseline_response):
     
     baseline_grading = rate_baseline_response(generated_scenario, baseline_response)
