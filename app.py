@@ -55,7 +55,7 @@ def training_mode():
         baseline_response = retrieve_baseline(generated_scenario)
         session['base_line_response'] = baseline_response
 
-    # Process user response in Training Mode
+    # Process user response (text)
     elif request.method == 'POST' and 'user_response' in request.form:
         user_response = request.form['user_response']
         num_suggestions = int(request.form['number_response'])
@@ -80,6 +80,7 @@ def training_mode():
             model_suggestion=formated_suggestions
         )
 
+    # Process user input (suggestions)
     elif request.method == 'POST' and 'user_input' in request.form:
         user_input = request.form['user_input']
         num_suggestions = int(request.form['number_response'])
