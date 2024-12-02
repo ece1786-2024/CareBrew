@@ -1,8 +1,5 @@
-# Currently, when the user reads the scenario it is unclear what they are responding to
-# This API call is to pose a meaningful question to the user
-# It is done in a seperate API call to not ruin the flow of data retrival 
-
-
+# Poses a meaningful question to the user after the scenario is generated
+# Separate API call so as not to interfere with data retrieval
 import openai
 
 generation_prompt = {
