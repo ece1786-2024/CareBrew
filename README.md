@@ -55,4 +55,26 @@ Open browser and navigate to http://127.0.0.1:5000
 
 ## Using CareBrew
 
-WIP
+CareBrew's homepage features some information about CareBrew, our team, and a button to access our Empathy Module.
+
+![Homepage](./images/homepage.png)
+
+Clicking the `Click to get started` button will take you to our Empathy Module, where you will be presented with a scenario.
+
+![Response](./images/response.png)
+
+Generate a new scenario by clicking `New Scenario`, or type a response to the customer service scenario in the text box and select the number of suggestions you want to receive from the drop-down menu and click `Evaluate`.
+
+You will then be presented with a critical evaluation of your response and a number of suggestions for improvement.
+
+![Evaluation](./images/evaluation.png)
+
+You can then either attempt a new scenario by clicking `Try another scenario`, or continue with the current scenario by again entering your new response in the text box, selecting the number of suggestions, and clicking `Evaluate`.
+
+![Iteration](./images/iteration.png)
+
+You will then be presented with another critical evaluation of your response and a number of suggestions for improvemen, with your previous responses shown in the chat history.
+
+![Evaluation2](./images/evaluation2.png)
+
+At any point in time, return to the homepage by clicking the `Home page` button.
