@@ -65,16 +65,27 @@ def get_baseline(scenario):
         elif line.startswith("Issue Type:"):
             issue_type = line.split(":")[1].strip()
 
-    matching_row = df[
-        (df['Customer'].str.lower() == customer_type.lower()) &
-        (df['Cause'].str.lower() == cause_type.lower()) &
-        (df['Issue'].str.lower() == issue_type.lower())
-    ]
 
-    full_response = matching_row['Response'].to_string(index=False)
+    try:
+        # Attempt to find the matching row based on the conditions
+        matching_row = df[
+            (df['Customer'].str.lower() == customer_type.lower()) &
+            (df['Cause'].str.lower() == cause_type.lower()) &
+            (df['Issue'].str.lower() == issue_type.lower())
+        ]
+        
+        # Extract the 'Response' column as a single string without index
+        full_response = matching_row['Response'].to_string(index=False)
 
-    #debug message
-    #print(full_response)
-    #print(matching_row)
+        # Debug messages (can be uncommented for troubleshooting)
+        # print(full_response)
+        # print(matching_row)
 
-    return full_response.replace("\n", " ").strip()
+        # Return the response after cleaning
+        return full_response.replace("\n", " ").strip()
+
+    except Exception as e:
+        # Return a fallback message if anything fails
+        # Optionally, log the exception for debugging purposes
+        # print(f"Error: {e}")
+        return "no standard response"
