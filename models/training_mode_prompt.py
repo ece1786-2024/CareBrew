@@ -1,8 +1,9 @@
+# Generates a customer service scenario for the user to respond to
+# Using weighted data factors in scenario_data.py
 import openai
 import random
 from models.scenario_data import data  # Import the data dictionary from data.py
 
-# The rest of your code stays the same
 factors = list(data.keys())
 factor_weights = [data[factor]["value"] for factor in factors]
 
