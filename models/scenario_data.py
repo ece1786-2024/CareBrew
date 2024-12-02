@@ -1,4 +1,4 @@
-# data.py
+# Weighted scenario factors for scenario generation
 data = {
     "Trust and Reactivity": {
         "value": 10.873,
