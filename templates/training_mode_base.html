@@ -10,6 +10,26 @@
         <img src="{{ url_for('static', filename='logo.png') }}" alt="CareBrew Logo" class="logo">
         <h1>CareBrew</h1>
     </header>
+    <div class="image-container" style="position: absolute; left: 5vh; top: 20%; width: 30vh; height: auto;">
+        <img src="{{ url_for('static', filename='coffee.png') }}" alt="Coffee 1" style="width: 100%; height: auto; object-fit: contain;">
+    </div>
+    <div class="image-container" style="position: absolute; left: 5vh; top: 50%; width: 30vh; height: auto;">
+        <img src="{{ url_for('static', filename='latte.png') }}" alt="Coffee 2" style="width: 100%; height: auto; object-fit: contain;">
+    </div>
+    <div class="image-container" style="position: absolute; left: 5vh; top: 80%; width: 30vh; height: auto;">
+        <img src="{{ url_for('static', filename='chai.png') }}" alt="Coffee 1" style="width: 100%; height: auto; object-fit: contain;">
+    </div>
+
+    <div class="image-container" style="position: absolute; right: 5vh; top: 20%; width: 30vh; height: auto;">
+        <img src="{{ url_for('static', filename='coldbrew.png') }}" alt="Coffee 1" style="width: 100%; height: auto; object-fit: contain;">
+    </div>
+    <div class="image-container" style="position: absolute; right: 5vh; top: 50%; width: 30vh; height: auto;">
+        <img src="{{ url_for('static', filename='vanilla.png') }}" alt="Coffee 2" style="width: 100%; height: auto; object-fit: contain;">
+    </div>
+    <div class="image-container" style="position: absolute; right: 5vh; top: 80%; width: 30vh; height: auto;">
+        <img src="{{ url_for('static', filename='uggo.png') }}" alt="Coffee 1" style="width: 100%; height: auto; object-fit: contain;">
+    </div>
+
     <div class="container">
         <p><strong>Scenario:</strong> {{ scenario }}</p>
         <p><strong>Question:</strong> {{ question }}</p>
