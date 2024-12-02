@@ -1,3 +1,7 @@
+# Data retrieval
+# Given a scenario, key words are extracted and searched for in data bank
+# Data bank consists of scenarios and their baseline responses
+# Returns the baseline response to be used in suggestions
 import pandas as pd
 import openai
 
@@ -49,10 +53,6 @@ def get_baseline(scenario):
 
     response_text = response.choices[0].message.content.strip()
     
-    #Debug message
-    #print(response_text)
-    #print(prompt)
-    
     customer_type = None
     cause_type = None
     issue_type = None
@@ -77,15 +77,9 @@ def get_baseline(scenario):
         # Extract the 'Response' column as a single string without index
         full_response = matching_row['Response'].to_string(index=False)
 
-        # Debug messages (can be uncommented for troubleshooting)
-        # print(full_response)
-        # print(matching_row)
-
         # Return the response after cleaning
         return full_response.replace("\n", " ").strip()
 
     except Exception as e:
         # Return a fallback message if anything fails
-        # Optionally, log the exception for debugging purposes
-        # print(f"Error: {e}")
         return "no standard response"
