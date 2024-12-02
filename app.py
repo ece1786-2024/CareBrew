@@ -58,7 +58,11 @@ def training_mode():
     # Process user response (text)
     elif request.method == 'POST' and 'user_response' in request.form:
         user_response = request.form['user_response']
-        num_suggestions = int(request.form['number_response'])
+        # Error catching
+        try:
+            num_suggestions = int(request.form.get('number_response', 1))
+        except ValueError:
+            num_suggestions = 1
         model_response, chat_session = process_training_response(chat_session, generated_scenario, user_response)
         suggestions = generate_suggestions(generated_scenario, user_response, baseline_response)
         formated_suggestions = format_suggestions(suggestions, num_suggestions)
@@ -83,7 +87,10 @@ def training_mode():
     # Process user input (suggestions)
     elif request.method == 'POST' and 'user_input' in request.form:
         user_input = request.form['user_input']
-        num_suggestions = int(request.form['number_response'])
+        try:
+            num_suggestions = int(request.form.get('number_response', 1))
+        except ValueError:
+            num_suggestions = 1
         model_response, chat_session = process_training_response(chat_session, model_response, user_input)
         suggestions = generate_suggestions(generated_scenario, user_input, baseline_response)
         formated_suggestions = format_suggestions(suggestions, num_suggestions)
