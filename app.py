@@ -24,7 +24,6 @@ def base():
 # CareBrew Academy
 @app.route('/training', methods=['GET', 'POST'])
 def training_mode():
-    # Retrieve scenario if it exists
     if request.method == 'POST' and 'generated_scenario' in session:
         generated_scenario = session['generated_scenario']
         user_question = ['user_question']
@@ -32,13 +31,12 @@ def training_mode():
         session['base_line_response'] = baseline_response
 
     else:
-        # Generate a scenario
+        # Generate a scenario using the function from training_mode_prompt.py
         session.clear()
         generated_scenario = generate_scenario()
         session['generated_scenario'] = generated_scenario
         user_question = generate_user_question(generated_scenario)
         session['user_question'] = user_question
-        # Data retrieval
         baseline_response = retrieve_baseline(generated_scenario)
         session['base_line_response'] = baseline_response
 
@@ -47,34 +45,23 @@ def training_mode():
     chat_session_text = session.get('chat_session_text', '')
     model_response = session.get('model_response', '')
 
-    # Generate new scenario if requested
+    # Check if the shuffle button was clicked
     if request.method == 'POST' and 'shuffle' in request.form:
-        session.clear()  # Clears chat history
+        session.clear()  # Clears the entire session when shuffle button is clicked
         generated_scenario = generate_scenario()
         session['generated_scenario'] = generated_scenario
         user_question = generate_user_question(generated_scenario)
         session['user_question'] = user_question
-        # Data retrieval
         baseline_response = retrieve_baseline(generated_scenario)
         session['base_line_response'] = baseline_response
 
-    # Process user response or user input
-    elif request.method == 'POST' and ('user_response' in request.form or 'user_input' in request.form):
-        if 'user_response' in request.form:
-            user_input = request.form['user_response']
-        else:
-            user_input = request.form['user_input']
-        
-        num_suggestions = int(request.form['number_response'])  # Number of suggested actions from model
-        
-        # Process the response and get the model's response and updated chat session
-        model_response, chat_session = process_training_response(chat_session, generated_scenario, user_input)
-        
-        # Generate suggestions based on the user input/response
-        suggestions = generate_suggestions(generated_scenario, user_input, baseline_response)
+    # Process user response in Training Mode
+    elif request.method == 'POST' and 'user_response' in request.form:
+        user_response = request.form['user_response']
+        num_suggestions = int(request.form['number_response'])
+        model_response, chat_session = process_training_response(chat_session, generated_scenario, user_response)
+        suggestions = generate_suggestions(generated_scenario, user_response, baseline_response)
         formated_suggestions = format_suggestions(suggestions, num_suggestions)
-        
-        # Process chat session for display
         chat_session_text = process_chat_session(chat_session)
         session['chat_session'] = chat_session
         session['chat_session_text'] = chat_session_text
@@ -82,9 +69,8 @@ def training_mode():
 
         # Save data to CSV if requested
         if 'save_data' in request.form:
-            save_training_data(generated_scenario, user_input, model_response)
+            save_training_data(generated_scenario, user_response, model_response)
 
-        # Return response page
         return render_template(
             'training_mode_response.html',
             scenario=generated_scenario,
@@ -94,7 +80,26 @@ def training_mode():
             model_suggestion=formated_suggestions
         )
 
-    # Return academy homepage
+    elif request.method == 'POST' and 'user_input' in request.form:
+        user_input = request.form['user_input']
+        num_suggestions = int(request.form['number_response'])
+        model_response, chat_session = process_training_response(chat_session, model_response, user_input)
+        suggestions = generate_suggestions(generated_scenario, user_input, baseline_response)
+        formated_suggestions = format_suggestions(suggestions, num_suggestions)
+        chat_session_text = process_chat_session(chat_session)
+        session['chat_session'] = chat_session
+        session['chat_session_text'] = chat_session_text
+        session['model_response'] = model_response
+
+        return render_template(
+            'training_mode_response.html',
+            scenario=generated_scenario, 
+            question=user_question,
+            chat_session_text=chat_session_text,
+            model_response=json_to_df_html(model_response),
+            model_suggestion=formated_suggestions
+        )
+
     return render_template('training_mode_base.html', scenario=generated_scenario, question=user_question)
 
 # Helper function for display purposes (rating)
